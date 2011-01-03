@@ -1,0 +1,69 @@
+h2. StatModeler
+
+StatModeler is made up of a Ruby DSL for creating statistical, quantitive or mathematical models and an calculation engine for the calculation of models.
+
+The DSL provides a semi-declarative syntax for defining the various aspects of a model, including:
+* Source data and mapping
+* Model components
+* Aggregation and filtering
+* Calculations
+* Outputing of results
+
+The calculation engine loads the source data, evaluates the model and produces the output.
+
+h2. What it does
+
+_TODO_
+
+h2. Use Cases
+
+_TODO_
+
+h2. Installing
+
+Install the *statmodeler* Ruby Gem:
+
+<pre>
+sudo gem install statmodeler
+</pre>
+
+h2. Model Syntax
+
+_TODO_
+
+h2. Model Definition
+
+_TODO_
+
+h2. Source Data and Mapping
+
+_TODO_
+
+h2. Aggregating
+
+_TODO_
+
+h2. Filtering
+
+_TODO_
+
+h2. Calculations
+
+_TODO_
+
+h2. Output
+
+_TODO_
+
+h2. Model Processing
+
+_TODO_
+
+h2. Examples
+
+_TODO_
+
+h2. Copyright
+
+Copyright (c) 2011 Chris Stefano. See LICENSE for details.
+

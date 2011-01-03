@@ -1,0 +1,3 @@
+module Statmodeler
+  # Your code goes here...
+end

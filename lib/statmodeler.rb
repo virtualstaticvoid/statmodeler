@@ -1,3 +1,4 @@
+#
 # Copyright (c) 2011 Chris Stefano
 #
 # Permission is hereby granted, free of charge, to any person obtaining
@@ -18,6 +19,7 @@
 # LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
 
 require 'statmodeler/version'
 require 'statmodeler/model'
@@ -29,7 +31,25 @@ require 'statmodeler/export_definition'
 
 module Statmodeler
 
-  # TODO
+  def self.define_model(name, options = {}, &block)
+    Model.new(name, options, &block)
+  end
+
+  def self.run_model(model)
+
+    # load source data
+
+    # perform processing
+
+    model.operations.each do |operation|
+      puts "Executing '#{operation.name}'..."
+      operation.block.call
+    end
+
+    # output results
+    model.observations
+
+  end
 
 end
 

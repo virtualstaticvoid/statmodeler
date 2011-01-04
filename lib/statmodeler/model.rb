@@ -53,15 +53,6 @@ module Statmodeler
       @data_points_definition = Definition.new(&block)
     end
 
-    def define_bulk_filter(name, &block)
-      @operations << Operation.new(name) do
-        @data_points.each do |data_point|
-          included = data_point.instance_eval &block
-          data_point.excluded |= !(included == nil ? false : included)
-        end
-      end
-    end
-
     def define_filter(name, &block)
       @operations << Operation.new(name) do
         @observations.dup.each do |observation|

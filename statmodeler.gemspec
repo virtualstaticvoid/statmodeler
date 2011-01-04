@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project = "statmodeler"
 
   # dependencies here
+  s.add_dependency 'fastercsv', ['>= 1.5.3']
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

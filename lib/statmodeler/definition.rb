@@ -2,6 +2,8 @@ class Statmodeler::Definition
 
   def initialize(&block)
 
+    @attributes = {}
+
     @klass = Object.const_set("Observation#{object_id.to_s}", Class.new)
 
     @klass.class_eval do
@@ -23,6 +25,9 @@ class Statmodeler::Definition
   end
 
   def define_data_point(name, value = nil, &block)
+
+    @attributes[name] = value
+
     @klass.instance_eval do
       if block
         define_method "#{name}" do
@@ -32,11 +37,17 @@ class Statmodeler::Definition
         attr_accessor name
       end
     end
-    method("#{name}=").call(value) if !block and value
+
   end
 
   def create_observation(model)
-    @klass.new(model)
+    instance = @klass.new(model)
+
+    @attributes.each do |name, value|
+      instance.method("#{name}=").call(value) if value
+    end
+
+    return instance
   end
 
 end

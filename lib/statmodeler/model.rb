@@ -12,8 +12,7 @@ module Statmodeler
     attr_reader :options
     attr_reader :parameters
     attr_reader :operations
-
-    attr_reader :observations
+    attr_reader :data_points_definition
 
     def initialize(name, options = {}, &block)
 
@@ -27,8 +26,6 @@ module Statmodeler
       @operations = []
 
       instance_eval &block
-
-      @observations = []
 
     end
 
@@ -54,9 +51,9 @@ module Statmodeler
     end
 
     def define_filter(name, &block)
-      @operations << Operation.new(name) do
-        @observations.dup.each do |observation|
-          @observations.delete observation if !observation.instance_eval &block
+      @operations << Operation.new(name) do |observations|
+        observations.dup.each do |observation|
+          observations.delete observation if observation.instance_eval(&block) == false
         end
       end
     end
@@ -66,19 +63,13 @@ module Statmodeler
     end
 
     def define_calculation(name, &block)
-      @operations << Operation.new(name) do
+      @operations << Operation.new(name) do |observations|
         instance_eval &block
       end
     end
 
     def model
       self
-    end
-
-    def for_each_observation(&block)
-      @observations.each do |observation|
-        observation.instance_eval &block
-      end
     end
 
   end

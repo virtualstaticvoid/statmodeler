@@ -24,7 +24,7 @@ model = Statmodeler.define_model :simple do
   end
 
   define_filter "Long positions only" do
-    parameters.long_positions_only && @market_value > 0
+    !parameters.long_positions_only && @market_value > 0
   end
 
 end

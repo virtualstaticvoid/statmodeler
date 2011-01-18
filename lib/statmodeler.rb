@@ -37,17 +37,29 @@ module Statmodeler
 
   def self.run_model(model)
 
-    # load source data
+    # load source data (observations)
+    observations = []
+
+# BEGIN HACK: test data...
+observations << model.data_points_definition.create_observation(model)
+observations << model.data_points_definition.create_observation(model)
+observations << model.data_points_definition.create_observation(model)
+observations << model.data_points_definition.create_observation(model)
+observations << model.data_points_definition.create_observation(model)
+observations.each do |observation|
+  observation.market_value = 1
+end
+# END HACK: test data...
 
     # perform processing
-
     model.operations.each do |operation|
+
       puts "Executing '#{operation.name}'..."
-      operation.block.call
+      operation.block.call(observations)
     end
 
     # output results
-    model.observations
+    return observations
 
   end
 

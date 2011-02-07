@@ -29,7 +29,23 @@ model = Statmodeler.define_model :simple do
 
 end
 
-observations = Statmodeler.run_model(model)
+data_mapping = Statmodeler.define_data_mapping 'CSV File', :csv  do
+
+  file_name 'simple.csv'
+  set_options :has_header => true,
+              :data_starts_on_row => 1
+  
+  mapping do
+    
+    define_column :security, 'ticker'
+    define_column :book_value, 'bookvalue'
+    define_column :market_value, 'currentmarketvalue'
+    
+  end
+  
+end 
+
+observations = Statmodeler.run_model(model, data_mapping)
 
 puts observations.inspect
 

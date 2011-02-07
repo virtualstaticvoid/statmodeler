@@ -25,9 +25,8 @@ require 'statmodeler/version'
 require 'statmodeler/model'
 require 'statmodeler/parameters'
 require 'statmodeler/definition'
-require 'statmodeler/import_definition'
+require 'statmodeler/data_mapping'
 require 'statmodeler/operation'
-require 'statmodeler/export_definition'
 
 module Statmodeler
 
@@ -35,21 +34,15 @@ module Statmodeler
     Model.new(name, options, &block)
   end
 
-  def self.run_model(model)
+  def self.define_data_mapping(name, type, options = {}, &block)
+    # TODO: resolve for class which implements "type"
+    DataMapping.new(name, type, options, &block)
+  end
+
+  def self.run_model(model, data_mapping)
 
     # load source data (observations)
-    observations = []
-
-# BEGIN HACK: test data...
-observations << model.data_points_definition.create_observation(model)
-observations << model.data_points_definition.create_observation(model)
-observations << model.data_points_definition.create_observation(model)
-observations << model.data_points_definition.create_observation(model)
-observations << model.data_points_definition.create_observation(model)
-observations.each do |observation|
-  observation.market_value = 1
-end
-# END HACK: test data...
+    observations = data_mapping.load_observations
 
     # perform processing
     model.operations.each do |operation|
@@ -64,4 +57,3 @@ end
   end
 
 end
-

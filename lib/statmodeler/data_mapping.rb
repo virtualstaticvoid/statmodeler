@@ -3,12 +3,14 @@ class Statmodeler::DataMapping
   attr_reader :name
   attr_reader :type
   attr_reader :options
+  attr_reader :columns
 
   def initialize(name, type, options = {}, &block)
 
     @name = name
     @type = type
     @options = options
+    @columns = []
 
     instance_eval &block
 
@@ -23,11 +25,11 @@ class Statmodeler::DataMapping
   end
 
   def mapping(&block)
-    # TODO
+    instance_eval &block
   end
 
   def define_column(name, source)
-    # TODO
+    @columns << ColumnMapping.new(name, source)
   end
 
   def load_observations(model)
@@ -53,6 +55,18 @@ class Statmodeler::DataMapping
     end
 
     return observations
+
+  end
+
+  class ColumnMapping
+
+    attr_reader :name
+    attr_reader :source
+
+    def initialize(name, source)
+      @name = name
+      @source = source
+    end
 
   end
 

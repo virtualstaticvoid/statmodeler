@@ -1,3 +1,5 @@
+require 'csv'
+
 class Statmodeler::DataMapping
 
   attr_reader :name
@@ -34,24 +36,21 @@ class Statmodeler::DataMapping
 
   def load_observations(model)
 
+    # get model data points definition, so we can create instances of the data point
     data_points_definition = model.data_points_definition
-
-    # TODO
-
-    # HACK: load source data (observations)
     observations = []
-    observations << data_points_definition.create_observation(model)
-    observations << data_points_definition.create_observation(model)
-    observations << data_points_definition.create_observation(model)
-    observations << data_points_definition.create_observation(model)
-    observations << data_points_definition.create_observation(model)
-    observations << data_points_definition.create_observation(model)
-    observations << data_points_definition.create_observation(model)
-    observations << data_points_definition.create_observation(model)
-    observations << data_points_definition.create_observation(model)
 
-    observations.each do |observation|
-      observation.market_value = 1
+    CSV.foreach(@file_name, @options) do |row|
+
+      observation = data_points_definition.create_observation(model)
+
+      # using mapping, load respective attributes
+      @columns.each do |col|
+        observation.set_value(col.name, row[col.source])
+      end
+
+      observations << observation
+
     end
 
     return observations

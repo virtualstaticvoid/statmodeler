@@ -31,19 +31,24 @@ end
 
 data_mapping = Statmodeler.define_data_mapping 'CSV File', :csv  do
 
-  file_name 'simple.csv'
-  set_options :has_header => true,
-              :data_starts_on_row => 1
-  
+  file_name File.join(File.dirname(__FILE__), 'simple.csv')
+
+  # available options as per CSV documentation
+  # http://www.ruby-doc.org/stdlib/libdoc/csv/rdoc/index.html
+
+  set_options :headers => true,
+              :return_headers => false,
+              :converters => :all
+
   mapping do
-    
+
     define_column :security, 'ticker'
     define_column :book_value, 'bookvalue'
     define_column :market_value, 'currentmarketvalue'
-    
+
   end
-  
-end 
+
+end
 
 observations = Statmodeler.run_model(model, data_mapping)
 

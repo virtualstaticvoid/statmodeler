@@ -18,8 +18,19 @@ class Statmodeler::Definition
         @model.parameters
       end
 
-      # TODO: add inspect and to_s method overrides
+      def set_value(name, value)
+        self.method("#{name}=").call(value)
+      end
 
+      def to_s
+        "\#<Observation id=#{object_id}>"
+      end
+
+      def inspect
+        @@instance_variables ||= self.instance_variables.select {|variable| variable != :@model}
+        value_s = @@instance_variables.collect {|variable| "#{variable}=#{instance_variable_get(variable)}" }.join(', ')
+        "\#<Observation #{value_s}>"
+      end
 
     end
 

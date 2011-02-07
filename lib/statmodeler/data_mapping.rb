@@ -6,8 +6,6 @@ class Statmodeler::DataMapping
 
   def initialize(name, type, options = {}, &block)
 
-    @klass = class << self; self; end
-
     @name = name
     @type = type
     @options = options
@@ -17,11 +15,11 @@ class Statmodeler::DataMapping
   end
 
   def file_name(name)
-    # TODO
+    @file_name = name
   end
 
-  def set_options(*args)
-    # TODO
+  def set_options(options = {})
+    @options.merge!(options)
   end
 
   def mapping(&block)

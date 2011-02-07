@@ -1,8 +1,7 @@
 require 'statmodeler/parameters'
 require 'statmodeler/definition'
-require 'statmodeler/import_definition'
+require 'statmodeler/data_mapping'
 require 'statmodeler/operation'
-require 'statmodeler/export_definition'
 
 module Statmodeler
 

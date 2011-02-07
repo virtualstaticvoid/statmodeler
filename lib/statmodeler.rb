@@ -42,7 +42,7 @@ module Statmodeler
   def self.run_model(model, data_mapping)
 
     # load source data (observations)
-    observations = data_mapping.load_observations
+    observations = data_mapping.load_observations(model)
 
     # perform processing
     model.operations.each do |operation|
@@ -57,3 +57,4 @@ module Statmodeler
   end
 
 end
+

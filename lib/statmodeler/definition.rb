@@ -18,6 +18,9 @@ class Statmodeler::Definition
         @model.parameters
       end
 
+      # TODO: add inspect and to_s method overrides
+
+
     end
 
     instance_eval &block
